@@ -1,0 +1,75 @@
+﻿@*@model  eInvitationApp.Models.InviteModel*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="row">
+    @*<div class="col-md-5">
+            <label class="gen-up-title">Enter Password</label>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="col-md-5">
+            <label class="gen-up-title">Enter Confirm Password</label>
+            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>*@
+    <div class="col-md-4 col-lg-4">
+        <div class="row">
+            <div class=" form-group col-md-12" style="margin:10px auto">
+                <input type="submit" value="Generate Invite Link" class="btn btn-primary" onclick="GenerateLink()" />
+            </div>
+        </div>
+        <div class="col-md-10">
+            <input type="text" id="inviteLink" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" id="btnCopyLink" class="btn btn-primary" value="Copy Invite Link" onclick="CopyLink()" />
+        </div>
+    </div>
+
+
+
+</div>
+@section Scripts
+{
+    <script>
+
+        function GenerateLink() {
+            var data = {
+                action: "generate_invite",
+                callback: "googleDocCallback",
+            }
+            //var action = "generate_invite";
+            $.ajax({
+                type: "post",
+                url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
+                data: JSON.stringify(data),
+                //contentType: "application/javascript",
+                //dataType: 'jsonp',
+                success: function (resp) {
+                    $("#inviteLink").val(window.location.origin + "/Home/Register?id=" + resp.data);
+                },
+                error: function () {
+                    alert("An error occurred!")
+                }
+
+            });
+        }
+
+        
+    </script>
+<script>
+    function CopyLink() {
+            var copyText = document.getElementById("inviteLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999)
+            document.execCommand("Copy");
+            alert("Invite Link successfully copied.");
+        }
+</script>
+}
+
+

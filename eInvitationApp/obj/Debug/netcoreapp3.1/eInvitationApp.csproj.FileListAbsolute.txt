@@ -1,0 +1,8 @@
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.csprojAssemblyReference.cache
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.MvcApplicationPartsAssemblyInfo.cache
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.AssemblyInfoInputs.cache
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.AssemblyInfo.cs
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.TagHelpers.input.cache
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.TagHelpers.output.cache
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.dll
+C:\apps\eInvitation\eInvitationApp\obj\Debug\netcoreapp3.1\eInvitationApp.pdb

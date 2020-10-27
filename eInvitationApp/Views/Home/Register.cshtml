@@ -1,0 +1,155 @@
+﻿@model eInvitationApp.Models.AttendeeModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<h4>Register Attendee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @*<div class="alert alert-danger col-sm-12" role="alert">
+                    <span></span>
+                </div>*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" id="firstName" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" id="lastName" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label">Email Address</label>
+                <input asp-for="email" class="form-control" id="email" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phone" class="control-label">Phone Number</label>
+                <input asp-for="phone" class="form-control" id="phone" />
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Get Invitation" class="btn btn-default" onclick="Register()" id="btnReg" />
+                <input type="submit" value="Download Invitation" class="btn btn-default" onclick="Download()" id="btnDownload" style="display:none" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var currentURL = document.URL;
+        const urlParams = new URL(currentURL);
+        const attendeeIdFromUrl = urlParams.searchParams.get('id')
+        var id = attendeeIdFromUrl;
+        console.log(attendeeIdFromUrl);
+        var data = {
+            id: id,
+            callback: "googleDocCallback",
+            action: "check_attendee"
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
+            data: JSON.stringify(data),
+            //contentType: "application/javascript",
+            //dataType: 'json',
+            success: function (resp) {
+                if (resp.description.toLowerCase() == "attendee has registered") {
+                    $("#firstName").val(resp.data.first_name).attr('readonly', 'readonly');
+                    $("#lastName").val(resp.data.last_name).attr('readonly', 'readonly');
+                    $("#email").val(resp.data.email).attr('readonly', 'readonly');
+                    $("#phone").val(resp.data.phone_number).attr('readonly', 'readonly');
+                    $("#btnReg").attr('disabled', 'disabled');
+                    $("#btnDownload").show();
+
+                }
+                else {
+                    $("#firstName").val("");
+                    $("#lastName").val("");
+                    $("#email").val("");
+                    $("#phone").val("");
+                    $("#btnDownload").hide();
+                }
+
+            },
+            error: function () {
+                alert("An error occurred!")
+            }
+
+        });
+
+        function Register() {
+       
+            var id = attendeeIdFromUrl;
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var data = {
+                action: "register_attendee",
+                callback: "googleDocCallback",
+                id: id,
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                phone_number: phone
+            }
+            $.ajax({
+                type: "POST",
+                url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
+                data: JSON.stringify(data),
+                success: function (resp) {
+                    alert(resp.description);
+                    $("#btnDownload").show();
+                    console.log(resp)
+                    
+                },
+                error: function () {
+                    alert("An error occurred!")
+                }
+
+            });
+        }
+
+        function Download() {
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+           
+            var reqDownload = {
+                FirstName: firstName,
+                LastName: lastName
+            }
+
+            $.ajax({
+                type: "POST",
+                url: document.location.origin + "/Home/Register",
+                data: JSON.stringify(reqDownload),
+                contentType: "application/javascript",
+                dataType: 'json',
+                success: function (resp) {
+                    alert("Download successful");
+                },
+                error: function () {
+                    alert("An error occurred!")
+                }
+
+            });
+        }
+    </script>
+
+
+}
