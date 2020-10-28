@@ -5,28 +5,16 @@
 
 
 
-<div class="row">
-    @*<div class="col-md-5">
-            <label class="gen-up-title">Enter Password</label>
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <div class="col-md-5">
-            <label class="gen-up-title">Enter Confirm Password</label>
-            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-        </div>*@
-    <div class="col-md-4 col-lg-4">
-        <div class="row">
-            <div class=" form-group col-md-12" style="margin:10px auto">
-                <input type="submit" value="Generate Invite Link" class="btn btn-primary" onclick="GenerateLink()" />
-            </div>
-        </div>
-        <div class="col-md-10">
-            <input type="text" id="inviteLink" class="form-control" />
-        </div>
-        <div class="col-md-2">
-            <input type="submit" id="btnCopyLink" class="btn btn-primary" value="Copy Invite Link" onclick="CopyLink()" />
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="mb-5">
+        <img src="~/assets/marriage.svg" />
+    </div>
+
+    <input type="submit" value="Generate Invite Link" class="btn generate_btn" id="genLink" onclick="GenerateLink()" />
+    <div class="col-md-4 col-lg-4 d-none" id="formLink">
+        <input type="text" id="inviteLink" class="form-control mb-4 " readonly/>
+        <div class="d-flex justify-content-center">
+            <input type="submit" id="btnCopyLink" class="btn generate_btn" value="Copy Invite Link" onclick="CopyLink()" />
         </div>
     </div>
 
@@ -36,12 +24,17 @@
 @section Scripts
 {
     <script>
+        let genLink = $('#genLink');
+        let formLink = $('#formLink');
+        let inviteDiv = $('#inviteDiv');
 
         function GenerateLink() {
             var data = {
                 action: "generate_invite",
                 callback: "googleDocCallback",
             }
+            genLink.attr('value', 'Loading....');
+            genLink.prop("disabled", true);
             //var action = "generate_invite";
             $.ajax({
                 type: "post",
@@ -51,25 +44,30 @@
                 //dataType: 'jsonp',
                 success: function (resp) {
                     $("#inviteLink").val(window.location.origin + "/Home/Register?id=" + resp.data);
+                    inviteDiv.text(window.location.origin + "/Home/Register?id=" + resp.data);
+                    genLink.addClass('d-none');
+                    formLink.removeClass('d-none');
                 },
                 error: function () {
                     alert("An error occurred!")
+                    genLink.text('Generate Invite Link');
+                    genLink.prop("disabled", false);
                 }
 
             });
         }
 
-        
+
     </script>
-<script>
-    function CopyLink() {
+    <script>
+        function CopyLink() {
             var copyText = document.getElementById("inviteLink");
             copyText.select();
             copyText.setSelectionRange(0, 99999)
             document.execCommand("Copy");
             alert("Invite Link successfully copied.");
         }
-</script>
+    </script>
 }
 
 

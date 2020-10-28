@@ -68,7 +68,7 @@ namespace eInvitationApp.Controllers
             }
 
             // Stream document to browser in DOCX format.
-            return File(fileContents, options.ContentType, "Resources/" + firstName + "_" + lastName + "_invite.pdf");
+            return File(fileContents, options.ContentType, firstName + "_" + lastName + "_invite.pdf");
             //document.Save("Resources/"+ firstName+"_"+ lastName+"_invite.pdf");
         }
 
