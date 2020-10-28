@@ -1,0 +1,10 @@
+﻿using System;
+namespace eInvitationApp
+{
+ public class global
+ {
+   public global()
+   {
+   }
+ }
+}

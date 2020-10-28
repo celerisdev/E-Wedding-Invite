@@ -41,9 +41,7 @@ namespace eInvitationApp.Controllers
         [HttpPost]
         public IActionResult Register(AttendeeModel obj)
         {
-
-            dynamic file =  Download(obj.FirstName,obj.LastName);
-            return View();
+            return Download(obj.FirstName, obj.LastName);
         }
 
         [HttpGet]
@@ -56,6 +54,11 @@ namespace eInvitationApp.Controllers
             var document = DocumentModel.Load("Resources/MOOLA2020.docx");
             document.Content.Replace("%Fullname%", firstName + " " + lastName, new CharacterFormat() { FontColor = Color.Black });
             byte[] fileContents;
+            MemoryStream data_stream;
+
+            //var filePath = @"wwwroot/resources/" + firstName + "_" + lastName + "_invite.pdf";
+
+            //document.Save(filePath);
 
             var options = GemBox.Document.SaveOptions.PdfDefault;
 
@@ -63,65 +66,21 @@ namespace eInvitationApp.Controllers
             using (var stream = new MemoryStream())
             {
                 document.Save(stream, options);
-
+                data_stream = stream;
                 fileContents = stream.ToArray();
             }
 
+            //Download the PDF document in the browser
+            //FileStreamResult fileStreamResult = new FileStreamResult(data_stream, "application/pdf");
+
+            //fileStreamResult.FileDownloadName = "Sample.pdf";
+
+            //return fileStreamResult;
+
             // Stream document to browser in DOCX format.
+            //return File(fileContents, options.ContentType, Path.GetFileName(firstName + "_" + lastName + "_invite.pdf"));
             return File(fileContents, options.ContentType, firstName + "_" + lastName + "_invite.pdf");
-            //document.Save("Resources/"+ firstName+"_"+ lastName+"_invite.pdf");
         }
-
-        //public string generatePDFdoc(Dictionary<string, string> Data, string name)
-        //{
-        //    try
-        //    {
-        //        //Loads an existing Word document //Policy DOcument
-        //        //WordDocument wordDocument = new WordDocument(System.Web.Hosting.HostingEnvironment.MapPath("~/Resources/MOOLA2020.docx"), FormatType.Docx);
-        //        //WordDocument wordDocument = new WordDocument("~/Resources/MOOLA2020.docx",FormatType.Docx);
-
-        //        FileStream fileStreamPath = new FileStream(@"Resources/MOOLA2020.docx", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        //        WordDocument wordDocument = new WordDocument(fileStreamPath, FormatType.Automatic);
-
-        //        foreach (string key in Data.Keys)
-
-        //        {
-        //            #region Personalize PDF
-        //            //Finds the first occurrence of a particular text in the document
-        //            TextSelection textSelection = wordDocument.Find(key, false, true);
-        //            if (textSelection != null)
-        //            {
-        //                //Gets the found text as single text range
-        //                WTextRange textRange = textSelection.GetAsOneRange();
-        //                //Modifies the text
-        //                //textRange.Text = PolicyCertData[key]; //this replaces just one occurence
-        //                wordDocument.Replace(key, Data[key], false, false);//replaces all occurences of the given text
-        //            }
-        //            #endregion
-        //        }
-
-
-        //        //Creates an instance of the DocToPDFConverter
-        //        DocToPDFConverter converter = new DocToPDFConverter();
-        //        //Converts Word document into PDF document
-        //        PdfDocument pdfDocument = converter.ConvertToPDF(wordDocument);
-        //        //Saves the PDF file
-        //        string Path = _hostingEnvironment.ContentRootPath + "Resources/" + name + "_invite.pdf";
-        //        // new WordDocument(_hostingEnvironment.ContentRootPath + "/Resources/MOOLA2020.docx",FormatType.Docx);
-        //        // Delete existing file first
-        //        // Create the file again
-        //        pdfDocument.Save(Path);
-        //        //Closes the instance of document objects
-        //        pdfDocument.Close(true);
-        //        wordDocument.Close();
-        //        return Path;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
-
 
         public IActionResult Privacy()
         {
