@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" onsubmit="Register()">
+        <form method="post">
             @*<div class="alert alert-danger col-sm-12" role="alert">
                     <span></span>
                 </div>*@
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label">Last Name</label>
-                <input asp-for="LastName" class="form-control" id="lastName" required/>
+                <input asp-for="LastName" class="form-control" id="lastName" required />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,8 +39,8 @@
                 <span asp-validation-for="phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Get Invitation" class="btn get-invite-btn mr-4"  id="btnReg" />
-                <input type="button" value="Download Invitation" class="btn generate_btn" onclick="Download()" id="btnDownload" style="display:none" />
+                <input type="submit" value="Get Invitation" class="btn get-invite-btn mr-4" id="btnReg" onclick="Register()" />
+                <input type="submit" value="Redownload Invitation" class="btn generate_btn" onclick="Download()" id="btnDownload" style="display:none" />
             </div>
         </form>
     </div>
@@ -55,7 +55,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
+    <script>
         var currentURL = document.URL;
         const urlParams = new URL(currentURL);
         const attendeeIdFromUrl = urlParams.searchParams.get('id')
@@ -92,7 +92,7 @@
 
             },
             error: function () {
-                alert("Your network is poor|")
+                alert("Your network is poor")
             }
 
         });
@@ -113,20 +113,22 @@
                 email: email,
                 phone_number: phone
             }
-            $.ajax({
-                type: "POST",
-                url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
-                data: JSON.stringify(data),
-                dataType: 'json',
-                success: function (resp) {
-                    alert(resp.description);
-                    $("#btnDownload").show();
-                    console.log(resp)
-                },
-                error: function () {
-                    alert("Somthing went wrong. Maybe you internet is poor")
-                }
-            });
+            if (firstName != "" && lastName != "" && email != "" && phone != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (resp) {
+                        alert(resp.description);
+                        $("#btnDownload").show();
+                        console.log(resp)
+                    },
+                    error: function () {
+                        alert("Somthing went wrong. Maybe you internet is poor")
+                    }
+                });
+            }
         }
 
         function Download() {
@@ -140,7 +142,7 @@
 
             $.ajax({
                 type: "POST",
-                url: document.location.origin + "/Home/Register?firstName="+firstName+"&lastName="+lastName,
+                url: document.location.origin + "/Home/Register?firstName=" + firstName + "&lastName=" + lastName,
                 data: JSON.stringify(reqDownload),
                 contentType: "application/javascript",
 
@@ -154,7 +156,7 @@
 
             });
         }
-</script>
+    </script>
 
 
 }

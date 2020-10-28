@@ -20,14 +20,30 @@ namespace eInvitationApp.Controllers
     {
 
         private readonly IHostingEnvironment _hostingEnvironment;
+        
 
         public HomeController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.ShowLinkbtn = false;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(InviteModel obj)
+        {
+            ViewBag.Password = obj.Password;
+            ViewBag.ShowLinkbtn = false;
+            
+            if(obj.Password == "moola20")
+            {
+                ViewBag.ShowLinkbtn = true;
+            }
             return View();
         }
 

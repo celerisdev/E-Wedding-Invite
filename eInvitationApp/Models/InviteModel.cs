@@ -7,8 +7,7 @@ namespace eInvitationApp.Models
 {
     public class InviteModel
     {
-        //public string Password { get; set; }
+        public string Password { get; set; }
         //public string ConfirmPassword { get; set; }
-
     }
 }

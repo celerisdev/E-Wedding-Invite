@@ -1,4 +1,4 @@
-﻿@*@model  eInvitationApp.Models.InviteModel*@
+﻿@model eInvitationApp.Models.InviteModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,10 +9,28 @@
     <div class="mb-5">
         <img src="~/assets/marriage.svg" />
     </div>
+    @if (ViewBag.ShowLinkbtn == false || ViewBag.ShowLinkbtn == null)
+    {
+        <form asp-action="Index" method="post">
+            <div class="col-md-12 col-lg-12 " id="passKey">
+                <input type="text" id="password" class="form-control mb-4 " placeholder="Enter Password" />
+                <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn generate_btn" value="Get Started" />
+                </div>
+                
+            </div>
+        </form>
+    }
 
-    <input type="submit" value="Generate Invite Link" class="btn generate_btn" id="genLink" onclick="GenerateLink()" />
+
+
+    @if (ViewBag.ShowLinkbtn == true)
+    {
+        <input type="submit" value="Generate Invite Link" class="btn generate_btn" id="genLink" onclick="GenerateLink()" />
+    }
+
     <div class="col-md-4 col-lg-4 d-none" id="formLink">
-        <input type="text" id="inviteLink" class="form-control mb-4 " readonly/>
+        <input type="text" id="inviteLink" class="form-control mb-4 " readonly />
         <div class="d-flex justify-content-center">
             <input type="submit" id="btnCopyLink" class="btn generate_btn" value="Copy Invite Link" onclick="CopyLink()" />
         </div>
