@@ -37,13 +37,12 @@ namespace eInvitationApp.Controllers
         [HttpPost]
         public IActionResult Index(InviteModel obj)
         {
-            ViewBag.Password = obj.Password;
             ViewBag.ShowLinkbtn = false;
-            
-            if(obj.Password == "moola20")
+            if (obj.Password.ToLower() == "20moola20")
             {
                 ViewBag.ShowLinkbtn = true;
             }
+
             return View();
         }
 
@@ -68,7 +67,7 @@ namespace eInvitationApp.Controllers
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             var document = DocumentModel.Load("Resources/MOOLA2020.docx");
-            document.Content.Replace("%Fullname%", firstName + " " + lastName, new CharacterFormat() { FontColor = Color.Black });
+            document.Content.Replace("%Fullname%", firstName + " " + lastName, new CharacterFormat() { FontColor = Color.Black, Size = 15, FontName = "Arial" });
             byte[] fileContents;
             MemoryStream data_stream;
 

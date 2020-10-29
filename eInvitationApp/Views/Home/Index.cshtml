@@ -4,25 +4,23 @@
 }
 
 
-
 <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="mb-5">
         <img src="~/assets/marriage.svg" />
     </div>
     @if (ViewBag.ShowLinkbtn == false || ViewBag.ShowLinkbtn == null)
     {
-        <form asp-action="Index" method="post">
+        <form method="post" onsubmit="StartProcess()">
             <div class="col-md-12 col-lg-12 " id="passKey">
-                <input type="text" id="password" class="form-control mb-4 " placeholder="Enter Password" />
+                <input asp-for="Password" class="form-control mb-4" id="password" placeholder="Enter Password" required type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
                 <div class="d-flex justify-content-center">
                     <input type="submit" class="btn generate_btn" value="Get Started" />
                 </div>
-                
+
             </div>
         </form>
     }
-
-
 
     @if (ViewBag.ShowLinkbtn == true)
     {
@@ -75,6 +73,24 @@
             });
         }
 
+        function StartProcess() {
+            let password = $("#password").val();
+            var data = {
+                password :password
+            }
+            $.ajax({
+                type: "POST",
+                url: "Home/Index",
+                data: JSON.stringify(data),
+                contentType: "application/javascript",
+                success: function (resp) {
+                
+                },
+                error: function () {
+                    alert("An error occurred!")
+                }
+            })
+        }
 
     </script>
     <script>
