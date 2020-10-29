@@ -65,9 +65,9 @@ namespace eInvitationApp.Controllers
 
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-
+            var fullName = (firstName + " " + lastName).ToUpper();
             var document = DocumentModel.Load("Resources/MOOLA2020.docx");
-            document.Content.Replace("%Fullname%", firstName + " " + lastName, new CharacterFormat() { FontColor = Color.Black, Size = 15, FontName = "Arial" });
+            document.Content.Replace("%Fullname%", fullName, new CharacterFormat() { FontColor = Color.Black, Size = 16, FontName = "Tahoma" });
             byte[] fileContents;
             MemoryStream data_stream;
 
