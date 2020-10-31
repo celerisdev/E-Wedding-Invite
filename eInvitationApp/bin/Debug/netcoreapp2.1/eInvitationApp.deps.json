@@ -28,15 +28,7 @@
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.10",
-          "Syncfusion.Compression.Base": "16.4450.0.54",
-          "Syncfusion.DocIO.Base": "16.4450.0.54",
-          "Syncfusion.DocToPdfConverter.Base": "16.4450.0.54",
-          "Syncfusion.Licensing": "16.4460.0.54",
-          "Syncfusion.OfficeChart.Base": "16.4450.0.54",
-          "Syncfusion.OfficeChartToImageConverter.Wpf": "16.4450.0.54",
-          "Syncfusion.Pdf.Base": "16.4450.0.54",
-          "Syncfusion.SfChart.WPF": "16.4450.0.54"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.10"
         },
         "runtime": {
           "eInvitationApp.dll": {}
@@ -465,94 +457,6 @@
         },
         "compile": {
           "ref/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll": {}
-        }
-      },
-      "Syncfusion.Compression.Base/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.Compression.Base.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.Compression.Base.dll": {}
-        }
-      },
-      "Syncfusion.DocIO.Base/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.DocIO.Base.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.DocIO.Base.dll": {}
-        }
-      },
-      "Syncfusion.DocToPdfConverter.Base/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.DocToPdfConverter.Base.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.DocToPdfConverter.Base.dll": {}
-        }
-      },
-      "Syncfusion.Licensing/16.4460.0.54": {
-        "runtime": {
-          "Syncfusion.Licensing.dll": {
-            "assemblyVersion": "16.4460.0.54",
-            "fileVersion": "16.4460.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.Licensing.dll": {}
-        }
-      },
-      "Syncfusion.OfficeChart.Base/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.OfficeChart.Base.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.OfficeChart.Base.dll": {}
-        }
-      },
-      "Syncfusion.OfficeChartToImageConverter.Wpf/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.OfficeChartToImageConverter.Wpf.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.OfficeChartToImageConverter.Wpf.dll": {}
-        }
-      },
-      "Syncfusion.Pdf.Base/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.Pdf.Base.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.Pdf.Base.dll": {}
-        }
-      },
-      "Syncfusion.SfChart.WPF/16.4450.0.54": {
-        "runtime": {
-          "Syncfusion.SfChart.WPF.dll": {
-            "assemblyVersion": "16.4450.0.54",
-            "fileVersion": "16.4450.0.54"
-          }
-        },
-        "compile": {
-          "Syncfusion.SfChart.WPF.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3857,46 +3761,6 @@
       "sha512": "sha512-0Srzh6YlhjuMxaqMyeCCdZs22cucaUAG6SKDd3gNHBJmre0VZ71ekzWu9rvLD4YXPetyNdPvV6Qst+8C++9v3Q==",
       "path": "system.security.cryptography.pkcs/4.7.0",
       "hashPath": "system.security.cryptography.pkcs.4.7.0.nupkg.sha512"
-    },
-    "Syncfusion.Compression.Base/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.DocIO.Base/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.DocToPdfConverter.Base/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.Licensing/16.4460.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.OfficeChart.Base/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.OfficeChartToImageConverter.Wpf/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.Pdf.Base/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syncfusion.SfChart.WPF/16.4450.0.54": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "type": "package",

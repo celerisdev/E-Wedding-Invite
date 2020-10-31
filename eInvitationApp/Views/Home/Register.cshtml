@@ -39,8 +39,8 @@
                 <span asp-validation-for="phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Get Invitation" class="btn get-invite-btn mr-4" id="btnReg" onclick="Register()" />
-                <input type="submit" value="Redownload Invitation" class="btn generate_btn" onclick="Download()" id="btnDownload" style="display:none" />
+                <input type="button" value="Get Invitation" class="btn get-invite-btn mr-4" id="btnReg" onclick="Register()" />
+                <input type="submit" value="Download Invitation" class="btn generate_btn" id="btnDownload" style="display:none" name="command" />
             </div>
         </form>
     </div>
@@ -74,6 +74,7 @@
             //dataType: 'json',
             success: function (resp) {
                 if (resp.description.toLowerCase() == "attendee has registered") {
+                    alert(resp.description)
                     $("#firstName").val(resp.data.first_name).attr('readonly', 'readonly');
                     $("#lastName").val(resp.data.last_name).attr('readonly', 'readonly');
                     $("#email").val(resp.data.email).attr('readonly', 'readonly');
@@ -81,6 +82,14 @@
                     $("#btnReg").attr('disabled', 'disabled');
                     $("#btnDownload").show();
 
+                }
+                else if (resp.description.toLowerCase() == "attendee does not exist") {
+                    alert(resp.description)
+                    $("#firstName").val("").attr('readonly', 'readonly');
+                    $("#lastName").val("").attr('readonly', 'readonly');
+                    $("#email").val("").attr('readonly', 'readonly');
+                    $("#phone").val("").attr('readonly', 'readonly');
+                    $("#btnDownload").hide();
                 }
                 else {
                     $("#firstName").val("");
@@ -92,7 +101,7 @@
 
             },
             error: function () {
-                alert("Your network is poor")
+                alert("Something is wrong somewhere!")
             }
 
         });
@@ -122,7 +131,7 @@
                     success: function (resp) {
                         alert(resp.description);
                         $("#btnDownload").show();
-                        console.log(resp)
+                        //console.log(resp)
                     },
                     error: function () {
                         alert("Somthing went wrong. Maybe you internet is poor")
@@ -141,22 +150,22 @@
             }
 
             $.ajax({
-                type: "POST",
-                url: document.location.origin + "/Home/Register?firstName=" + firstName + "&lastName=" + lastName,
+                type: "GET",
+                url: "Home/Register?firstName=" + firstName + "&lastName=" + lastName,
                 data: JSON.stringify(reqDownload),
                 contentType: "application/javascript",
-
                 success: function (resp) {
                     alert("Download successful");
                 },
                 error: function () {
-
-                    alert("Somthing went wrong. Maybe you internet")
+                    //alert("Somthing went wrong. Maybe you internet")
                 }
 
             });
         }
+
     </script>
 
 
 }
+

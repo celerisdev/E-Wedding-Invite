@@ -42,7 +42,6 @@
     <script>
         let genLink = $('#genLink');
         let formLink = $('#formLink');
-        let inviteDiv = $('#inviteDiv');
 
         function GenerateLink() {
             var data = {
@@ -60,7 +59,7 @@
                 //dataType: 'jsonp',
                 success: function (resp) {
                     $("#inviteLink").val(window.location.origin + "/Home/Register?id=" + resp.data);
-                    inviteDiv.text(window.location.origin + "/Home/Register?id=" + resp.data);
+                
                     genLink.addClass('d-none');
                     formLink.removeClass('d-none');
                 },
@@ -74,9 +73,9 @@
         }
 
         function StartProcess() {
-            let password = $("#password").val();
+            var password = $("#password").val();
             var data = {
-                password :password
+                password : password
             }
             $.ajax({
                 type: "POST",

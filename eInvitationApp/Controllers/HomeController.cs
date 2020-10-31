@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using eInvitationApp.Models;
-using System.Data;
-using Syncfusion.DocIO;
-using Syncfusion.DocIO.DLS;
-using Microsoft.AspNetCore.Hosting;
-using Syncfusion.DocToPDFConverter;
-using Syncfusion.Pdf;
-using System.IO;
+﻿using eInvitationApp.Models;
 using GemBox.Document;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.IO;
 
 namespace eInvitationApp.Controllers
 {
@@ -20,7 +11,7 @@ namespace eInvitationApp.Controllers
     {
 
         private readonly IHostingEnvironment _hostingEnvironment;
-        
+
 
         public HomeController(IHostingEnvironment hostingEnvironment)
         {
@@ -38,7 +29,7 @@ namespace eInvitationApp.Controllers
         public IActionResult Index(InviteModel obj)
         {
             ViewBag.ShowLinkbtn = false;
-            if (obj.Password.ToLower() == "20moola20")
+            if (obj.Password == "20moola20")
             {
                 ViewBag.ShowLinkbtn = true;
             }
@@ -49,18 +40,56 @@ namespace eInvitationApp.Controllers
         [HttpGet]
         public IActionResult Register(string id)
         {
+            //string command_id = (command != null) ? command.ToString() : "";
 
+            //if (command_id.Equals("Download Invitation"))
+            //{
+            //    if(obj.FirstName != null || obj.FirstName == "")
+            //    {
+            //        var options = GemBox.Document.SaveOptions.PdfDefault;
+
+            //        DocumentModel document = this.Download(obj.FirstName, obj.LastName);
+            //        // Save document to DOCX format in byte array.
+            //        using (var stream = new MemoryStream())
+            //        {
+            //            document.Save(stream, options);
+
+            //            return View(); // return File(stream.ToArray(), options.ContentType, obj.FirstName + "_" + obj.LastName + "_invite.pdf");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return View();
+            //    }
+            //}
+            //else
+            //{
+            //    return View();
+            //}
             return View();
+
         }
 
         [HttpPost]
         public IActionResult Register(AttendeeModel obj)
         {
-            return Download(obj.FirstName, obj.LastName);
+            if (!ModelState.IsValid)
+                return View(obj);
+            var options = GemBox.Document.SaveOptions.PdfDefault;
+
+            DocumentModel document = this.Download(obj.FirstName, obj.LastName);
+            // Save document to DOCX format in byte array.
+            using (var stream = new MemoryStream())
+            {
+                document.Save(stream, options);
+                stream.Position = 0;
+                return File(stream.ToArray(), options.ContentType, obj.FirstName + "_" + obj.LastName + "_invite.pdf");
+            }
+
         }
 
-        [HttpGet]
-        public IActionResult Download(string firstName, string lastName)
+
+        private DocumentModel Download(string firstName, string lastName)
         {
 
             // If using Professional version, put your serial key below.
@@ -68,33 +97,7 @@ namespace eInvitationApp.Controllers
             var fullName = (firstName + " " + lastName).ToUpper();
             var document = DocumentModel.Load("Resources/MOOLA2020.docx");
             document.Content.Replace("%Fullname%", fullName, new CharacterFormat() { FontColor = Color.Black, Size = 16, FontName = "Tahoma" });
-            byte[] fileContents;
-            MemoryStream data_stream;
-
-            //var filePath = @"wwwroot/resources/" + firstName + "_" + lastName + "_invite.pdf";
-
-            //document.Save(filePath);
-
-            var options = GemBox.Document.SaveOptions.PdfDefault;
-
-            // Save document to DOCX format in byte array.
-            using (var stream = new MemoryStream())
-            {
-                document.Save(stream, options);
-                data_stream = stream;
-                fileContents = stream.ToArray();
-            }
-
-            //Download the PDF document in the browser
-            //FileStreamResult fileStreamResult = new FileStreamResult(data_stream, "application/pdf");
-
-            //fileStreamResult.FileDownloadName = "Sample.pdf";
-
-            //return fileStreamResult;
-
-            // Stream document to browser in DOCX format.
-            //return File(fileContents, options.ContentType, Path.GetFileName(firstName + "_" + lastName + "_invite.pdf"));
-            return File(fileContents, options.ContentType, firstName + "_" + lastName + "_invite.pdf");
+            return document;
         }
 
         public IActionResult Privacy()
