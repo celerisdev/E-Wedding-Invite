@@ -1,0 +1,42 @@
+﻿# First let’s build the app and publish it.
+FROM gcr.io/cloud-builders/csharp/dotnet AS builder
+
+# install System.Drawing native dependencies
+RUN apt-get update \
+    && apt-get install -y --allow-unauthenticated \
+        libc6-dev \
+        libgdiplus \
+        libx11-dev \
+     && rm -rf /var/lib/apt/lists/*
+
+# Add these two lines for fonts-liberation instead
+# RUN apt-get update; apt-get install -y fontconfig fonts-liberation
+# RUN fc-cache -f -v
+# # OR Add these two lines
+RUN sed -i'.bak' 's/$/ contrib/' /etc/apt/sources.list
+RUN apt-get update; apt-get install -y ttf-mscorefonts-installer fontconfig
+RUN fc-cache -f -v
+# RUN cp wwwroot/fonts/Arial.ttf ../usr/share/fonts/truetype/Arial.ttf
+
+
+COPY . /src
+WORKDIR /src
+RUN dotnet restore --packages /packages
+RUN dotnet publish -c Release -o /published
+
+# # ---------
+# # MS CORE FONTS
+# # ---------
+# # from http://askubuntu.com/a/25614
+# RUN sed -i'.bak' 's/$/ contrib/' /etc/apt/sources.list
+# RUN apt-get update; apt-get install -y ttf-mscorefonts-installer fontconfig
+# ADD localfonts.conf /etc/fonts/local.conf
+# RUN fc-cache -f -v
+
+# # Now let's build the app's image.
+FROM gcr.io/google-appengine/aspnetcore:2.1
+
+COPY --from=builder /published /app
+ENV ASPNETCORE_URLS=http://*:${PORT}
+WORKDIR /app
+ENTRYPOINT [ "dotnet", "eInvitationApp.dll" ]

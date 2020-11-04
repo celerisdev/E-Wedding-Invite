@@ -4,44 +4,80 @@
 }
 
 
-<div class="d-flex flex-column justify-content-center align-items-center">
-    <div class="mb-5">
-        <img src="~/assets/marriage.svg" />
-    </div>
-    @if (ViewBag.ShowLinkbtn == false || ViewBag.ShowLinkbtn == null)
-    {
-        <form method="post" onsubmit="StartProcess()">
-            <div class="col-md-12 col-lg-12 " id="passKey">
-                <input asp-for="Password" class="form-control mb-4" id="password" placeholder="Enter Password" required type="password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <div class="d-flex justify-content-center">
-                    <input type="submit" class="btn generate_btn" value="Get Started" />
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="mb-5">
+            <img src="~/assets/marriage.svg" />
+        </div>
+        @if (ViewBag.ShowLinkbtn == false || ViewBag.ShowLinkbtn == null)
+        {
+            <form method="post" onsubmit="StartProcess()">
+                <div class="col-md-12 col-lg-12 " id="passKey">
+                    <input asp-for="Password" class="form-control mb-4" id="password" placeholder="Enter Password" required type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" class="btn generate_btn" value="Get Started" />
+                    </div>
+
+                </div>
+            </form>
+        }
+
+        @if (ViewBag.ShowLinkbtn == true)
+        {
+            <input type="submit" value="Generate Invite Link" class="btn generate_btn" id="genLink" onclick="GenerateLink()" />
+        }
+
+        <div class="col-md-4 col-lg-4 d-none" id="formLink">
+            <input type="text" id="inviteLink" class="form-control mb-4 " readonly />
+            <div class="d-flex justify-content-center">
+                <input type="submit" id="btnCopyLink" class="btn generate_btn" value="Copy Invite Link" onclick="CopyLink()" />
+            </div>
+        </div>
+
+        @if (ViewBag.ShowLinkbtn == true)
+        {
+            <div class="row" style="padding-top:20px">
+                <div class="col-sm-4">
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header stats_header align-items-center d-flex justify-content-center">
+                            Links Generated
+                        </div>
+                        <div class="card-body align-items-center d-flex justify-content-center">
+                            <h4 class="card-title">@ViewBag.TotalLinkGenerated</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header stats_header align-items-center d-flex justify-content-center">
+                            Registered
+                        </div>
+                        <div class="card-body align-items-center d-flex justify-content-center">
+                            <h4 class="card-title">@ViewBag.TotalRegistered</h4>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="col-sm-4">
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header stats_header align-items-center d-flex justify-content-center">
+                            Not Registered
+                        </div>
+                        <div class="card-body align-items-center d-flex justify-content-center">
+                            <h4 class="card-title">@ViewBag.TotalNotRegistered</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
-    }
-
-    @if (ViewBag.ShowLinkbtn == true)
-    {
-        <input type="submit" value="Generate Invite Link" class="btn generate_btn" id="genLink" onclick="GenerateLink()" />
-    }
-
-    <div class="col-md-4 col-lg-4 d-none" id="formLink">
-        <input type="text" id="inviteLink" class="form-control mb-4 " readonly />
-        <div class="d-flex justify-content-center">
-            <input type="submit" id="btnCopyLink" class="btn generate_btn" value="Copy Invite Link" onclick="CopyLink()" />
+        }
         </div>
-    </div>
 
-
-
-</div>
 @section Scripts
 {
     <script>
         let genLink = $('#genLink');
         let formLink = $('#formLink');
+
 
         function GenerateLink() {
             var data = {
@@ -86,7 +122,7 @@
                 
                 },
                 error: function () {
-                    alert("An error occurred!")
+                    @*alert("An error occurred!")*@
                 }
             })
         }

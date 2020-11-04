@@ -1,0 +1,39 @@
+﻿<Properties StartupConfiguration="{1202C3BB-B3FC-4B48-A056-5D9D45AFDACD}|Default">
+  <MonoDevelop.Ide.ItemProperties.eInvitationApp PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="eInvitationApp/wwwroot/css/site.css">
+    <Files>
+      <File FileName="eInvitationApp/Controllers/HomeController.cs" Line="54" Column="1" />
+      <File FileName="eInvitationApp/web.config" Line="7" Column="37" />
+      <File FileName="eInvitationApp/appsettings.json" />
+      <File FileName="../../../../../usr/local/share/dotnet/sdk/3.1.403/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.DefaultItems.targets" />
+      <File FileName="eInvitationApp/Views/Home/Index.cshtml" Line="63" Column="110" />
+      <File FileName="eInvitationApp/wwwroot/css/site.css" Line="63" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="eInvitation" expanded="True">
+            <Node name="eInvitationApp" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True">
+                  <Node name="site.css" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

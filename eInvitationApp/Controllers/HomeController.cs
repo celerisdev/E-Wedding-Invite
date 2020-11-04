@@ -2,20 +2,25 @@
 using GemBox.Document;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RestSharp;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace eInvitationApp.Controllers
 {
     public class HomeController : Controller
     {
 
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-
-        public HomeController(IHostingEnvironment hostingEnvironment)
+        public class Statistics
         {
-            _hostingEnvironment = hostingEnvironment;
+            public string total_links { get; set; }
+            public string total_not_registered { get; set; }
+            public string total_registered { get; set; }
         }
 
         [HttpGet]
@@ -29,9 +34,31 @@ namespace eInvitationApp.Controllers
         public IActionResult Index(InviteModel obj)
         {
             ViewBag.ShowLinkbtn = false;
+
+            var uri = "/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec";
             if (obj.Password == "20moola20")
             {
                 ViewBag.ShowLinkbtn = true;
+            
+                var client = new RestClient("https://script.google.com");
+                var request = new RestRequest(uri, Method.POST);
+
+                request.AddJsonBody(new
+                {
+                    action = "get_stats"
+                });
+
+                IRestResponse response = client.Execute(request);
+                var content = response.Content;
+
+                Dictionary<string, object> statistics = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+
+                var data = JsonConvert.SerializeObject(statistics["description"]);
+                var datas = JsonConvert.DeserializeObject<Statistics>(data);
+
+                ViewBag.TotalLinkGenerated = datas.total_links;
+                ViewBag.TotalNotRegistered = datas.total_not_registered;
+                ViewBag.TotalRegistered = datas.total_registered;
             }
 
             return View();
@@ -40,32 +67,6 @@ namespace eInvitationApp.Controllers
         [HttpGet]
         public IActionResult Register(string id)
         {
-            //string command_id = (command != null) ? command.ToString() : "";
-
-            //if (command_id.Equals("Download Invitation"))
-            //{
-            //    if(obj.FirstName != null || obj.FirstName == "")
-            //    {
-            //        var options = GemBox.Document.SaveOptions.PdfDefault;
-
-            //        DocumentModel document = this.Download(obj.FirstName, obj.LastName);
-            //        // Save document to DOCX format in byte array.
-            //        using (var stream = new MemoryStream())
-            //        {
-            //            document.Save(stream, options);
-
-            //            return View(); // return File(stream.ToArray(), options.ContentType, obj.FirstName + "_" + obj.LastName + "_invite.pdf");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        return View();
-            //    }
-            //}
-            //else
-            //{
-            //    return View();
-            //}
             return View();
 
         }
@@ -75,15 +76,15 @@ namespace eInvitationApp.Controllers
         {
             if (!ModelState.IsValid)
                 return View(obj);
-            var options = GemBox.Document.SaveOptions.PdfDefault;
+            //var options = SaveOptions.PdfDefault;
+            var options = new PdfSaveOptions() { ImageDpi = 220 };
 
-            DocumentModel document = this.Download(obj.FirstName, obj.LastName);
-            // Save document to DOCX format in byte array.
+            DocumentModel document = Download(obj.FirstName, obj.LastName);
+            //Save document to DOCX format in byte array.
             using (var stream = new MemoryStream())
             {
                 document.Save(stream, options);
-                stream.Position = 0;
-                return File(stream.ToArray(), options.ContentType, obj.FirstName + "_" + obj.LastName + "_invite.pdf");
+                return File(stream.ToArray(), "application/pdf", obj.FirstName + "_" + obj.LastName + "_invite.pdf");
             }
 
         }
@@ -91,12 +92,12 @@ namespace eInvitationApp.Controllers
 
         private DocumentModel Download(string firstName, string lastName)
         {
-
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-            var fullName = (firstName + " " + lastName).ToUpper();
-            var document = DocumentModel.Load("Resources/MOOLA2020.docx");
-            document.Content.Replace("%Fullname%", fullName, new CharacterFormat() { FontColor = Color.Black, Size = 16, FontName = "Tahoma" });
+            string fullName = (firstName + " " + lastName).ToUpper();
+
+            var document = DocumentModel.Load("wwwroot/MOOLA2020.docx");
+            document.Content.Replace("%Fullname%", fullName);
             return document;
         }
 
