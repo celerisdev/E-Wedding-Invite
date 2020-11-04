@@ -36,8 +36,7 @@
 
         @if (ViewBag.ShowLinkbtn == true)
         {
-            <div class="row" style="padding-top:20px">
-                <div class="col-sm-4">
+            <div class="card-deck" style="padding-top:20px">
                     <div class="card" style="width: 12rem;">
                         <div class="card-header stats_header align-items-center d-flex justify-content-center">
                             Links Generated
@@ -46,8 +45,6 @@
                             <h4 class="card-title">@ViewBag.TotalLinkGenerated</h4>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
                     <div class="card" style="width: 12rem;">
                         <div class="card-header stats_header align-items-center d-flex justify-content-center">
                             Registered
@@ -56,9 +53,7 @@
                             <h4 class="card-title">@ViewBag.TotalRegistered</h4>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-sm-4">
                     <div class="card" style="width: 12rem;">
                         <div class="card-header stats_header align-items-center d-flex justify-content-center">
                             Not Registered
@@ -67,7 +62,6 @@
                             <h4 class="card-title">@ViewBag.TotalNotRegistered</h4>
                         </div>
                     </div>
-                </div>
             </div>
         }
         </div>
