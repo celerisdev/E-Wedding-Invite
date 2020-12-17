@@ -102,6 +102,7 @@ C:/apps/eInvitation/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.csproj
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.TagHelpers.input.cache
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.TagHelpers.output.cache
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.RazorCoreGenerate.cache
+/Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/Razor/Views/Attendance/Index.cshtml.g.cs
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/Razor/Views/Home/Contact.cshtml.g.cs
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/Razor/Views/Home/Index.cshtml.g.cs
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/Razor/Views/Home/Privacy.cshtml.g.cs
@@ -119,4 +120,3 @@ C:/apps/eInvitation/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.csproj
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.pdb
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.genruntimeconfig.cache
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.csproj.CopyComplete
-/Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Debug/netcoreapp2.1/eInvitationApp.csprojAssemblyReference.cache

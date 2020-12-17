@@ -69,3 +69,4 @@ C:/apps/eInvitation/eInvitationApp/obj/Release/netcoreapp2.1/eInvitationApp.pdb
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Release/netcoreapp2.1/eInvitationApp.genruntimeconfig.cache
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Release/netcoreapp2.1/eInvitationApp.csproj.CopyComplete
 /Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/bin/Release/netcoreapp2.1/web.config
+/Users/kenechidukor/Documents/Repositories/E-Wedding-Invite/eInvitationApp/obj/Release/netcoreapp2.1/Razor/Views/Attendance/Index.cshtml.g.cs

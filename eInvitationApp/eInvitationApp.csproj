@@ -27,4 +27,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\MOOLA2020.docx" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Attendance\" />
+  </ItemGroup>
 </Project>

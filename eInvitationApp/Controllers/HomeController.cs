@@ -94,6 +94,7 @@ namespace eInvitationApp.Controllers
         {
             // If using Professional version, put your serial key below.
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+
             string fullName = (firstName + " " + lastName).ToUpper();
 
             var document = DocumentModel.Load("wwwroot/MOOLA2020.docx");

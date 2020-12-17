@@ -1,0 +1,115 @@
+﻿@model eInvitationApp.Models.AttendanceModel
+@{
+    ViewData["Title"] = "Attendee Tracker";
+}
+
+<div id="cover-spin"></div>
+
+<table id="myTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model.infodata)
+        {
+        <tr>
+            <td> @record["FIRST_NAME"]</td>
+            <td>@record["LAST_NAME"]</td>
+            @if (@record["STATUS"].ToString() == "")
+            {
+                string attendee_id = "'" + @record["ID"].ToString() + "'";
+        <td>
+            <button ID="BtnSubmit" class="px-2 rounded text-white d-inline-block" style="background: #05A8D2;" onclick="ValidateForm(@attendee_id);"> Check In </button>
+            @*<a href="http://www.askniid.org/VerifyPolicy.aspx" class="px-2 rounded text-white d-inline-block" style="background: #05A8D2;">Check In</a>*@
+        </td>
+            }
+            else
+            {
+                <td>Checked</td>
+            }
+
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Status</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }</script>
+
+<script type="text/javascript" language="javascript">
+    function ValidateForm_(id) {
+
+        var data = {
+            IDD: id
+        }
+        $.ajax({
+            type: "POST",
+            url: "Attendance/Index/?IDD=" + id,
+            data: JSON.stringify(data),
+            contentType: "application/javascript",
+            success: function (resp) {
+
+            },
+            error: function () {
+                @* alert("An error occurred!") *@
+                }
+        })
+    }
+</script>
+
+<script>
+    function ValidateForm(id) {
+        var data = {
+            action: "mark_attendee",
+            id: id,
+            callback: "googleDocCallback",
+        }
+
+        @*$('#cover-spin').show(0)*@
+        document.getElementById("cover-spin").style.display = "block";
+
+        $.ajax({
+            type: "post",
+            url: "https://script.google.com/macros/s/AKfycbwilW4_LJrUVzziROPO6gdL3wM8cWnN-hke729NaQ67_vSfG_g/exec",
+            data: JSON.stringify(data),
+
+            success: function (resp) {
+                console.log(resp)
+                document.getElementById("cover-spin").style.display = "none";
+                alert(resp.description)
+              
+            },
+            error: function () {
+                alert("An error occurred!")
+            }
+
+        });
+    }
+</script>
